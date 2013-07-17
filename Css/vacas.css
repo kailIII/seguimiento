@@ -1,0 +1,66 @@
+#formContainer, #edit{
+    display: none;
+}
+
+#listaVacunas{
+	display: none;
+}
+
+#listaActividades{
+	display: none;
+}
+
+#listaComentarios{
+	display: none;
+}
+
+#showHideVacunas{
+	display: none;
+}
+
+#showHideActividades{
+	display: none;
+}
+
+#showHideComentarios{
+	display: none;
+}
+
+
+#events{
+	display: none;
+}
+
+#vacaPerdida{
+	display: inline;
+}
+
+#vacaMuerta{
+	display: inline;
+}
+
+#volver{
+	display: inline;
+}
+
+#editButton{
+	display: inline;
+}
+
+#editarVacunas{
+	display: inline;
+}
+
+#editarActividades{
+	display: inline;
+}
+
+#formVacunas{
+	display: none;
+}
+
+#formActividades{
+	display: none;
+}
+
+

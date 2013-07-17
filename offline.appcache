@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# Version 1.0
+
+CACHE:
+/bootstrap/css/bootstrap.min.css
+/bootstrap/img/glyphicons-halflings-white.png
+/bootstrap/img/glyphicons-halflings.png
+/jquery/jquery-latest.js
+/jquery/jquery.tablesorter.min.js
+/Js/vacas.js
+/Css/vacas.css
+
