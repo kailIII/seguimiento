@@ -45,15 +45,12 @@ function editForm(){
 	form.style.display = "block";
 	var editButton = document.getElementById("editButton");
 	editButton.innerHTML = "Ocultar";
-	var perdida = document.getElementById("vacaPerdida");
-	var muerta = document.getElementById("vacaMuerta");
-	perdida.style.display = "none";
-	muerta.style.display = "none";
+	var estadoVacas = document.getElementById("estadoVacas");
+	estadoVacas.style.display = "none";
 	editButton.onclick = function(){
 		form.style.display = "none";
-		editButton.innerHTML = "Editar";
-		perdida.style.display = "inline";
-		muerta.style.display = "inline";
+		editButton.innerHTML = "Editar Vaca";
+		estadoVacas.style.display = "inline";
 		editButton.onclick = function(){
 			editForm();
 		}

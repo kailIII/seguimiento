@@ -16,7 +16,7 @@ $obtenerVacunas = mysql_query("SELECT id, vacunas FROM vacunas WHERE idusuario_v
 ?>
 
 <head>
-  <title>Editar Vacunas</title>
+  <title>Editar Actividades</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -41,49 +41,56 @@ $obtenerVacunas = mysql_query("SELECT id, vacunas FROM vacunas WHERE idusuario_v
 <body>
   <div class="container-narrow">
   	<div class="masthead">
-  		<h4 class="muted">Editando Vacunas: Vaca N&#176; <?php echo $UID; ?></h4>
+  		<h4 class="muted">Agregando Eventos: Vaca N&#176; <?php echo $UID; ?></h4>
     </div>
   </div>
   <hr>
   </br>
-  <div id="formVacunas">
-  <form action="editardbvacunas.php" method="POST">
-    <h4 class="text-error">Se&ntilde;ale todas las vacunas que tiene el animal el d&iacute;a de la fecha.</h4>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check[]" value="1">Antiparasitario</input>
-        </label>
-        <span>&nbsp;&nbsp;</span>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check[]" value="2">Brucelosis</input>
-        </label>
-        <span>&nbsp;&nbsp;</span>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check[]" value="3">Aftosa</input>
-        </label>
 
-        <?php
-
-          $flag = 0;
-          while($listadoVacunas = mysql_fetch_array($obtenerVacunas)){
-            $flag = $flag + 1;
-            echo "<label class=\"checkbox inline\" > ";
-            echo "<input type=\"checkbox\" name=\"check[]\" value =\" ". $listadoVacunas['id'] . "\" >". $listadoVacunas['vacunas'] . "</input>";
-            echo "</label>";
-            if($flag % 3 == 0){
-              echo "</br>";
-            }
-          }
-          ?>
-
+  <div id="formActividades">
+  <form action="editardbeventos.php" method="POST">
+    <h4 class="text-error">Indique las actividades que desea agregar</h4>
+    	</br>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="1">Servicio</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="2">Destete</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="3">Descorne</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="4">Se&ntilde;alada</input>
+        </label>
         </br>
         </br>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="5">Marcacion</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="6">Castracion</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="7">Tacto Rectal</input>
+        </label>
+        </br>
+        </br>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="8">Descarte de Vacas</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="9">Revisi&oacute;n de Toros</input>
+        </label>
+        <label class="checkbox inline">
+        <input type="checkbox" name="check2[]" value="10">Inventario</input>
+        </label>
+        <br/>
+        <br/>
         <input type="hidden" name="senasa" value="<? echo $UID; ?>">
-        <button type="submit" name="submit" class="btn btn-success" value="Edit">Confirmar</button>
-      </form>
+        <input type="submit" value="Agregar" class="btn btn-success"></input>
+      </fieldset>
+  </form>
 </div>
 </body>
 </html>
-
-
-
-

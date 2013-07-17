@@ -133,8 +133,8 @@ if(mysql_num_rows($resultComentarios)){
 
   ?>
 </div>
-<h3 class="muted" id="showHideActividades" <?php if($actividades)echo "style=\"display:block\"" ?>><button class="btn dropdown-toggle" data-toggle="dropdown">Actividades<span class="caret"></span></button></h3>
-<strong <?php if($actividades) echo "style=\"display:none\"" ?>>No se Registraron Actividades</br></strong>
+<h3 class="muted" id="showHideActividades" <?php if($actividades)echo "style=\"display:block\"" ?>><button class="btn dropdown-toggle" data-toggle="dropdown">Eventos<span class="caret"></span></button></h3>
+<strong <?php if($actividades) echo "style=\"display:none\"" ?>>No se Registraron Eventos</br></strong>
 <div id="listaActividades">
   <?php
 
@@ -175,11 +175,11 @@ if(mysql_num_rows($resultComentarios)){
 
   ?>
 </div>
-
+ 
 <br/>
 <a href="#" onclick="editForm()" id="editButton" class="btn btn-warning">Editar Vaca</a><span>&nbsp;&nbsp;&nbsp;</span>
 <a <?php echo "href=\"editarvacunas.php?senasa=" . $UID . " \" " ?> id="editarVacunas" class="btn btn-warning">Editar vacunas</a><span>&nbsp;&nbsp;&nbsp;</span>
-<a href="#" onclick="editFormActividades()" id="editarActividades" class="btn btn-warning">Agregar Actividad</a></br></br>
+<a <?php echo "href=\"editareventos.php?senasa=" . $UID . " \" " ?> class="btn btn-warning">Agregar Evento</a></br></br>
 
 <form id="edit" action="editDb.php" method="POST">
   <legend>Editar Vaca</legend>
@@ -227,82 +227,12 @@ if(mysql_num_rows($resultComentarios)){
   <button type="submit" name="submit" class="btn btn-success" value="Edit">Editar</button>
 </form>
 
-
-<div id="formVacunas">
-  <form action="editarvacunas.php" method="POST">
-    <h4 class="text-error">Se&ntilde;ale todas las vacunas que tiene el animal el d&iacute;a de la fecha.</h4>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check[]" value="1">Antiparasitario</input>
-        </label>
-        <span>&nbsp;&nbsp;</span>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check[]" value="2">Brucelosis</input>
-        </label>
-        <span>&nbsp;&nbsp;</span>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check[]" value="3">Aftosa</input>
-        </label>
-        <?php
-          while($listadoVacunas = mysql_fetch_array($obtenerVacunas)){
-            echo "<label class=\"checkbox inline\" > ";
-            echo "<input type=\"checkbox\" name=\"check[]\" value =\" ". $obtenerVacunas['id'] . "\" >". $obtenerVacunas['vacunas'] . "</input>";
-            echo "</label>";
-          }
-        ?>
-        </br>
-        </br>
-        <input type="hidden" name="senasa" value="<? echo $UID; ?>">
-        <button type="submit" name="submit" class="btn btn-success" value="Edit">Editar</button>
-      </form>
+<div id="estadoVacas">
+  <h5 class="text-error">Cambiar estado.</h5>
+  <a <?php echo "href=\"perdida.php?senasa=" . $senasa . " \" "; ?> id="vacaPerdida" class="btn btn-info">Perdida</a><span>&nbsp;&nbsp;&nbsp;</span>
+  <a <?php echo "href=\"muerta.php?senasa=" . $senasa . " \" "; ?> id="vacaMuerta" class="btn btn-inverse">Muerta</a>
 </div>
 
-<div id="formActividades">
-  <form action="editarActividades.php" method="POST">
-    <h3>Indique las actividades que desea agregar</h3>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="1">Servicio</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="2">Destete</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="3">Descorne</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="4">Se&ntilde;alada</input>
-        </label>
-        </br>
-        </br>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="5">Marcacion</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="6">Castracion</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="7">Tacto Rectal</input>
-        </label>
-        </br>
-        </br>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="8">Descarte de Vacas</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="9">Revisi&oacute;n de Toros</input>
-        </label>
-        <label class="checkbox inline">
-        <input type="checkbox" name="check2[]" value="10">Inventario</input>
-        </label>
-        <br/>
-        <br/>
-        <input type="hidden" name="senasa" value="<? echo $UID; ?>">
-        <input type="submit" value="Agregar" class="btn btn-success"></input>
-      </fieldset>
-  </form>
-</div>
-
-<a <?php echo "href=\"perdida.php?senasa=" . $senasa . " \" "; ?> id="vacaPerdida" class="btn btn-info">Perdida</a><span>&nbsp;&nbsp;&nbsp;</span>
-<a <?php echo "href=\"muerta.php?senasa=" . $senasa . " \" "; ?> id="vacaMuerta" class="btn btn-inverse">Muerta</a>
 </br>
 </br>
 <a href="../index.php" id="volver" class="btn btn-primary">Volver</a>
