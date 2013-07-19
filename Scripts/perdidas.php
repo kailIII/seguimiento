@@ -16,7 +16,7 @@ $time = date(Y);
 <!DOCTYPE html>
 <html lang="en">
  <head>
-  <title>Feed Lot</title>
+  <title>Vacas Perdidas</title>
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -37,7 +37,7 @@ $time = date(Y);
     <h3>Ganado Bovino</h3>
   </div>
 </div>
-<h4 class="muted">Vacas vendidas a&ntilde;o <?php echo $time; ?> </h4>
+<h4 class="muted">Vacas perdidas a&ntilde;o <?php echo $time; ?> </h4>
 <div>
   <ul class="nav nav-tabs">
     <li class="dropdown">
@@ -45,16 +45,16 @@ $time = date(Y);
       <ul class="dropdown-menu">
         <li><a href="../main.php"><h5>Vivas</h5></a></li>
         <li><a href="muertas.php"><h5>Muertas</h5></a></li>
-        <li><a href="#"><h5>Vendidas<h5></a></li>
+        <li><a href="vendidas.php"><h5>Vendidas<h5></a></li>
         <li class="divider"></li>
-        <li><a href="perdidas.php"><h5>Perdidas</h5></a></li>
+        <li><a href="#"><h5>Perdidas</h5></a></li>
       </ul>
     </li>
     <li><a href="eventos.php"><h5>Eventos</h5></a></li>
     <li><a href="#"><h5>Vender</h5></a></li>
   </ul>
 </div>
-    <h4 class="muted">Vacas Vendidas</h4>
+    <h4 class="muted">Vacas Perdidas</h4>
 
 
   <table id="completeTable" class="table table-striped">
@@ -62,19 +62,20 @@ $time = date(Y);
     <tr>
       <th>id</th>
       <th>Nac.</th>
+      <th>Tacto</th>
+      <th>Parici&oacute;n</th>
       <th>Sanidad</th>
       <th>Estado</th>
-      <th>Fecha de Venta</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
   <?php 
     include 'connect.php';
-    
 
-    $result = mysql_query("SELECT DATE_FORMAT(hembras.time_hembra, '%m/%Y') AS 'date' , hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra, hembras.sanidad_hembra,
-              hembras.estado_hembra, tacto.tacto, paricion.paricion FROM hembras INNER JOIN tacto ON tacto.id = hembras.tacto INNER JOIN paricion ON paricion.id = hembras.paricion 
-              WHERE existencia_hembra = '3' AND YEAR(time_hembra) = '$time' AND idusuario_hembra = '$id_usuario' ") or die (mysql_error());
+
+    $result = mysql_query("SELECT hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra, hembras.sanidad_hembra, hembras.estado_hembra, YEAR(hembras.time_hembra), tacto.tacto, paricion.paricion FROM hembras 
+             INNER JOIN tacto ON tacto.id = hembras.tacto INNER JOIN paricion ON paricion.id = hembras.paricion WHERE existencia_hembra = '4' AND YEAR(hembras.time_hembra) = '$time' AND hembras.id_lote = '1' AND idusuario_hembra = '$id_usuario' ") or die (mysql_error());
 
     /*
     $sql = $conn->prepare('SELECT vacas.id, vacas.senasa, vacas.nacimiento, vacas.vacunas, vacas.periodo, vacas.estado, tacto.tacto, paricion.paricion FROM vacas 
@@ -85,16 +86,17 @@ $time = date(Y);
 
     while($row = mysql_fetch_array($result)){
 
-    echo "<tr><td>". $row['senasa_hembra'] . "</td>
+    echo "<tr><td><a href=\"detallePerdida.php?senasa=" . $row['senasa_hembra'] . "\" >" . $row['senasa_hembra'] . "</a></td>
     <td>".$row['nacimiento_hembra']."</td>
+    <td>".$row['tacto']."</td>
+    <td>".$row['paricion']."</td>
     <td>".$row['sanidad_hembra']."</td>
     <td>".$row['estado_hembra']."</td>
-    <td>".$row['date']."</td></tr>";
+    <td><a href=\"encontrada.php?id=" . $row['id_hembra'] . "&senasa=" . $row['senasa_hembra'] . "\" class=\"btn btn-info\" >Aparecio</a></td></tr>";
     }
   ?>
   </tbody>
   </table>
-  
 </div>
 
   <div class="footer"></div>

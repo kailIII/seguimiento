@@ -5,28 +5,9 @@ if (!isset($_SESSION['email']) && !isset($_SESSION['pass']) && !isset($_SESSION[
 header('Location: ../index.php');
 }
 
-
 $UID = mysql_real_escape_string($_REQUEST['senasa']);
 
 $id_usuario = $_SESSION['id'];
-
-$q = "SELECT hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra, hembras.sanidad_hembra, hembras.estado_hembra, tacto.tacto, paricion.paricion FROM hembras 
-             INNER JOIN tacto ON tacto.id = hembras.tacto INNER JOIN paricion ON paricion.id = hembras.paricion WHERE `existencia_hembra` = '1' AND `senasa_hembra` = '$UID' AND `idusuario_hembra` = '$id_usuario' ";
-
-$result = mysql_query($q) or die (mysql_error());
-$row = mysql_fetch_array($result);
-
-$senasa = $row['senasa_hembra'];
-$nacimiento = $row['nacimiento_hembra'];
-$tacto = $row['tacto'];
-$paricion = $row['paricion'];
-$vacunas = $row['sanidad_hembra'];
-$estado = $row['estado_hembra'];
-
-
-//Traigo vacunas de acuerdo al usuario
-$obtenerVacunas = mysql_query("SELECT id, vacunas FROM vacunas WHERE idusuario_vacunas = '$id_usuario'") or die (mysql_error());
-
 
 
 $q2 = "SELECT vacunas.id, vacunas.vacunas, DATE_FORMAT(vacunas_int.time, '%m/%Y') as 'date_vacunacion' FROM vacunas INNER JOIN vacunas_int ON vacunas_int.id_vacuna = vacunas.id 
@@ -51,7 +32,7 @@ if(mysql_num_rows($resultActividades)){
 
 
 
-$queryComentarios = "SELECT comentario, DATE_FORMAT(time_comentario, '%d/%m/%Y') as 'date_comentario' FROM comentarios WHERE `senasa_comentario` = $UID AND `idusuario_comentario` = $id_usuario ";
+$queryComentarios = "SELECT comentario, DATE_FORMAT(time_comentario, '%d/%m/%Y') as 'date_comentario' FROM comentarios WHERE `senasa_comentario` = '$UID' AND `idusuario_comentario` = '$id_usuario' ";
 
 $resultComentarios = mysql_query($queryComentarios) or die (mysql_error());
 
@@ -62,7 +43,7 @@ if(mysql_num_rows($resultComentarios)){
 ?>
 
 <head>
-  <title>Detail View</title>
+  <title>Detalle Perdida</title>
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -75,26 +56,8 @@ if(mysql_num_rows($resultComentarios)){
 <body>
   <div class="container-narrow">
     <div class="masthead">
-        <h3 class="muted">Detalle Vaca N&#176; <?php echo $UID; ?></h3>
+        <h3 class="muted">Detalle Vaca N&#176; <?php echo $UID; ?> (Perdida)</h3>
     </div>
-
-
-<div>
-  <ul class="nav nav-tabs">
-    <li class="dropdown">
-      <a class="dropdown-toggle" id="dropdown-toggle" data-toggle="dropdown" href="#"><h5>Editar<b class="caret"></b></h5></a>
-      <ul class="dropdown-menu">
-        <li><a <?php echo "href=\"editarvaca.php?senasa=" . $UID . " \" " ?>><h5>Datos de Vaca</h5></a></li>
-        <li><a <?php echo "href=\"editarvacunas.php?senasa=" . $UID . " \" " ?>><h5>Vacunas</h5></a></li>
-        <li><a <?php echo "href=\"editareventos.php?senasa=" . $UID . " \" " ?>><h5>Eventos</h5></a></li>
-      </ul>
-    </li>
-    <li><a <?php echo "href=\"vendida.php?senasa=" . $UID . " \" " ?> ><h5>Vender</h5></a></li>
-    <li><a class="text-success" <?php echo "href=\"agregarcomentario.php?senasa=" . $UID . " \" " ?> ><h5>Agregar Comentario</h5></a></li>
-  </ul>
-</div>
-
-
 <table id="completeTable" class="table table-striped">
 	<thead>
     	<tr>
@@ -112,7 +75,7 @@ if(mysql_num_rows($resultComentarios)){
     <?php 
     
       $result2 = mysql_query("SELECT hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra, hembras.sanidad_hembra, hembras.estado_hembra, YEAR(hembras.time_hembra) AS 'periodo', tacto.tacto, paricion.paricion FROM hembras 
-             INNER JOIN tacto ON tacto.id = hembras.tacto INNER JOIN paricion ON paricion.id = hembras.paricion WHERE `existencia_hembra` = '1' AND `senasa_hembra` = '$UID' AND `idusuario_hembra` = '$id_usuario' ") or die (mysql_error());
+             INNER JOIN tacto ON tacto.id = hembras.tacto INNER JOIN paricion ON paricion.id = hembras.paricion WHERE `existencia_hembra` = '4' AND `senasa_hembra` = '$UID' AND `idusuario_hembra` = '$id_usuario' ") or die (mysql_error());
       while($row2 = mysql_fetch_array($result2)){
 
       echo "<tr><td>".$row2['periodo']."</td>
@@ -126,7 +89,7 @@ if(mysql_num_rows($resultComentarios)){
     ?>
     </tbody>
 </table>
-<h3 class="muted" id="showHideVacunas" <?php if($vacunasLista)echo "style=\"display:block\"" ?>><button class="btn">Vacunas<span class="caret"></span></button></h3>
+<h3 class="muted" id="showHideVacunas" <?php if($vacunasLista)echo "style=\"display:block\"" ?>><button class="btn dropdown-toggle" data-toggle="dropdown">Vacunas<span class="caret"></span></button></h3>
 <strong <?php if($vacunasLista) echo "style=\"display:none\"" ?>>No se Registraron Vacunas</br></strong>
 <div id="listaVacunas">
   <?php
@@ -152,7 +115,7 @@ if(mysql_num_rows($resultComentarios)){
 
   ?>
 </div>
-<h3 class="muted" id="showHideActividades" <?php if($actividades)echo "style=\"display:block\"" ?>><button class="btn" >Eventos<span class="caret"></span></button></h3>
+<h3 class="muted" id="showHideActividades" <?php if($actividades)echo "style=\"display:block\"" ?>><button class="btn dropdown-toggle" data-toggle="dropdown">Eventos<span class="caret"></span></button></h3>
 <strong <?php if($actividades) echo "style=\"display:none\"" ?>>No se Registraron Eventos</br></strong>
 <div id="listaActividades">
   <?php
@@ -178,7 +141,7 @@ if(mysql_num_rows($resultComentarios)){
 
   ?>
 </div>
-<h3 class="muted" id="showHideComentarios" <?php if($comentarios)echo "style=\"display:block\"" ?>><button class="btn" >Comentarios<span class="caret"></span></button></h3>
+<h3 class="muted" id="showHideComentarios" <?php if($comentarios)echo "style=\"display:block\"" ?>><button class="btn dropdown-toggle" data-toggle="dropdown">Comentarios<span class="caret"></span></button></h3>
 <strong <?php if($comentarios) echo "style=\"display:none\"" ?>>No se Registraron Comentarios</br></strong>
 <div id="listaComentarios">
   <?php
@@ -187,7 +150,7 @@ if(mysql_num_rows($resultComentarios)){
     echo "<ul>";
 
     while($row3 = mysql_fetch_array($resultComentarios)){
-      echo "<li>" . $row3['date_comentario'] . " - " . $row3['comentario'];
+      echo "<li>" . $row3['date_comentario'] ." - " . $row3['comentario'];
     }
     echo "</ul>";
   }
@@ -199,16 +162,15 @@ if(mysql_num_rows($resultComentarios)){
 
 <div id="estadoVacas">
   <h5 class="text-error">Cambiar estado.</h5>
-  <a <?php echo "href=\"perdida.php?senasa=" . $senasa . " \" "; ?> id="vacaPerdida" class="btn btn-info">Perdida</a><span>&nbsp;&nbsp;&nbsp;</span>
-  <a <?php echo "href=\"muerta.php?senasa=" . $senasa . " \" "; ?> id="vacaMuerta" class="btn btn-inverse">Muerta</a>
+  <a <?php echo "href=\"encontrada.php?senasa=" . $UID . " \" "; ?> class="btn btn-info">Encontrada</a><span>&nbsp;&nbsp;&nbsp;</span>
+  <a <?php echo "href=\"muerta.php?senasa=" . $UID . " \" "; ?> class="btn btn-inverse">Muerta</a>
 </div>
 
 </br>
 </br>
-<a href="../index.php" id="volver" class="btn btn-primary">Volver</a>
+<a href="perdidas.php" id="volver" class="btn btn-primary">Volver</a>
 </div>
   <script type="text/javascript" src="../jquery/jquery-latest.min.js"></script> 
-  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="../jquery/jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="../Js/vacas.js"></script>
 </body>

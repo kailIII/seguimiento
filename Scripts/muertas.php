@@ -9,8 +9,10 @@ $id_usuario = $_SESSION['id'];
 $nombre = $_SESSION['nombre'];
 $apellido = $_SESSION['apellido'];
 
+$time = date(Y);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,26 +35,28 @@ $apellido = $_SESSION['apellido'];
       <li><a href="#">Contact</a></li>
       <li class="active"><a href="logOut.php" class="btn-danger">Cerrar sesi&oacute;n</a></li>
     </ul>
-    <h3 class="muted">Ganado Bovino</h3>
+    <h3>Ganado Bovino</h3>
   </div>
 </div>
+<h4 class="muted">Vacas Muertas a&ntilde;o <?php echo $time; ?></h4>
 
-<div class="container-narrow">
-  <div class="masthead">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li><a href="../main.php">Madres</a></li>
-              <li class="active"><a href="#">Muertas</a></li>
-              <li><a href="vendidas.php">Vendidas</a></li>
-              <li><a href="eventos.php">Eventos</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><!-- /.navbar -->
-    </div>
-    <h4 class="muted">Vacas Muertas</h4>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h5>Vacas<b class="caret"></b></h5></a>
+      <ul class="dropdown-menu">
+        <li><a href="../main.php"><h5>Vivas</h5></a></li>
+        <li><a href="#"><h5>Muertas</h5></a></li>
+        <li><a href="vendidas.php"><h5>Vendidas<h5></a></li>
+        <li class="divider"></li>
+        <li><a href="perdidas.php"><h5>Perdidas</h5></a></li>
+      </ul>
+    </li>
+    <li><a href="eventos.php"><h5>Eventos</h5></a></li>
+    <li><a href="#"><h5>Vender</h5></a></li>
+  </ul>
+</div>
+    
 
 
   <table id="completeTable" class="table table-striped">
@@ -61,19 +65,20 @@ $apellido = $_SESSION['apellido'];
       <th>id</th>
       <th>Nac.</th>
       <th>Sanidad</th>
-      <th>Estado</th>
       <th>Fecha de Muerte</th>
+      <th>Comentario</th>
     </tr>
     </thead>
     <tbody>
   <?php 
     include 'connect.php';
     
-    $time = date(Y);
 
     $result = mysql_query("SELECT DATE_FORMAT(hembras.time_hembra, '%m/%Y') AS 'date' , hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra,
-              hembras.vacunas_hembra, hembras.estado_hembra, tacto.tacto, paricion.paricion FROM hembras INNER JOIN tacto ON tacto.id = hembras.tacto 
-              INNER JOIN paricion ON paricion.id = hembras.paricion WHERE hembras.existencia_hembra = '2' AND YEAR(hembras.time_hembra) = '$time' AND idusuario_hembra = '$id_usuario' ") or die (mysql_error());
+              hembras.sanidad_hembra, hembras.estado_hembra, tacto.tacto, paricion.paricion, comentario_muerte.comentario_muerte FROM hembras INNER JOIN tacto ON tacto.id = hembras.tacto 
+              INNER JOIN paricion ON paricion.id = hembras.paricion INNER JOIN comentario_muerte ON comentario_muerte.id = hembras.comentario_muerte
+              WHERE hembras.existencia_hembra = '2' AND YEAR(hembras.time_hembra) = '$time' AND idusuario_hembra = '$id_usuario' ") or die (mysql_error());
+
 
     /*
     $sql = $conn->prepare('SELECT vacas.id, vacas.senasa, vacas.nacimiento, vacas.vacunas, vacas.periodo, vacas.estado, tacto.tacto, paricion.paricion FROM vacas 
@@ -86,9 +91,9 @@ $apellido = $_SESSION['apellido'];
 
     echo "<tr><td>". $row['senasa_hembra'] . "</td>
     <td>".$row['nacimiento_hembra']."</td>
-    <td>".$row['vacunas_hembra']."</td>
-    <td>".$row['estado_hembra']."</td>
-    <td>".$row['date']."</td></tr>";
+    <td>".$row['sanidad_hembra']."</td>
+    <td>".$row['date']."</td>
+    <td>".$row['comentario_muerte']."</td></tr>";
     }
   ?>
   </tbody>
@@ -97,7 +102,7 @@ $apellido = $_SESSION['apellido'];
 </div>
 
   <div class="footer"></div>
-  <script type="text/javascript" src="../jquery/jquery-latest.js"></script> 
+  <script type="text/javascript" src="../jquery/jquery-latest.min.js"></script> 
   <script type="text/javascript" src="../jquery/jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script> 
   <script type="text/javascript" src="../Js/vacas.js"></script> 

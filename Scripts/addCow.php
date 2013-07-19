@@ -62,24 +62,6 @@ if(preg_match('/^[A-Za-z0-9][,A-Za-z0-9-]*(?:_[A-Za-z0-9]+)*$/', $senasa)==false
 	}
 
 
-	//Query Vacunas
-    /*
-	if($_POST['check'] != 0){
-		$query = "INSERT INTO vacunas_int (id_vaca, id_vacuna, semestre, periodo, id_usuario) VALUES ";
-
-		foreach($_POST['check'] as $i => $value) { 
-	 		// Get values from post.
-	  		$vacuna = mysql_real_escape_string($_POST['check'][$i]);
-
-	  		// Add to database
-	  		$query = $query." ('$senasa','$vacuna', '$semestre', '$periodo', '$id_usuario') ,";
-		}
-
-		$query = substr($query,0,-1); //remove last char
-		mysql_query($query) or die (mysql_error());
-	}
-	*/
-
 	header('Location: ../main.php');		
 	}
 }

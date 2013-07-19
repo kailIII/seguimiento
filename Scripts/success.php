@@ -17,8 +17,9 @@ header('Location: ../main.php');
 <meta name="viewport" content="width=device-width, initial-scale=0.7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link href="../bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet" />
+<link href="../bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <link href="../Css/success.css" type="text/css" rel="stylesheet" />
+<link href="../bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet" />
 
 </head>
 

@@ -3,7 +3,7 @@ session_start();
 include 'connect.php';
 
 if (!isset($_SESSION['email']) && !isset($_SESSION['pass']) && !isset($_SESSION['id'])) {
-header('Location: index.php');
+header('Location: ../index.php');
 }
 
 $id_usuario = $_SESSION['id'];

@@ -10,9 +10,9 @@ $id_vaca = $_GET['id'];
 $senasa = $_GET['senasa'];
 
 
-$query = "DELETE FROM vacas WHERE id = '$id_vaca' AND id_usuario = '$id_usuario'";
+$query = "DELETE FROM hembras WHERE id_hembra = '$id_vaca' AND idusuario_hembra = '$id_usuario'";
 
-$queryVac = "DELETE FROM vacunas_int WHERE id_vaca = '$senasa' AND id_usuario = '$id_usuario'";
+$queryVac = "DELETE FROM vacunas_int WHERE senasa_vaca = '$senasa' AND idusuario_vint = '$id_usuario'";
 
 mysql_query($query) or die (mysql_error());
 mysql_query($queryVac) or die (mysql_error());

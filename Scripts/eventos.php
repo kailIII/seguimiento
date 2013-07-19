@@ -53,26 +53,28 @@ $queryVacunas = mysql_query("SELECT DATE_FORMAT(seguimiento_vacunacion.time_even
       <li><a href="#">Contact</a></li>
       <li class="active"><a href="logOut.php" class="btn-danger">Cerrar sesi&oacute;n</a></li>
     </ul>
-    <h3 class="muted">Ganado Bovino</h3>
+    <h3>Ganado Bovino</h3>
   </div>
 </div>
 
-<div class="container-narrow">
-  <div class="masthead">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li><a href="../main.php">Madres</a></li>
-              <li><a href="muertas.php">Muertas</a></li>
-              <li><a href="vendidas.php">Vendidas</a></li>
-              <li class="active"><a href="#">Eventos</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><!-- /.navbar -->
-    </div>
-    <h4 class="muted">Eventos</h4>
+<h4 class="muted">Eventos</h4>
+
+<div>
+  <ul class="nav nav-tabs">
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h5>Vacas<b class="caret"></b></h5></a>
+      <ul class="dropdown-menu">
+        <li><a href="../main.php"><h5>Vivas</h5></a></li>
+        <li><a href="muertas.php"><h5>Muertas</h5></a></li>
+        <li><a href="vendidas.php"><h5>Vendidas<h5></a></li>
+        <li class="divider"></li>
+        <li><a href="perdidas.php"><h5>Perdidas</h5></a></li>
+      </ul>
+    </li>
+    <li><a href="#"><h5>Eventos</h5></a></li>
+    <li><a href="#"><h5>Vender</h5></a></li>
+  </ul>
+</div>
 
 <div class="container-narrow">
   <button href="#" id="addEventButton" onclick="addEvent()" class="btn btn-warning">Nuevo evento</button>
@@ -165,7 +167,7 @@ $queryVacunas = mysql_query("SELECT DATE_FORMAT(seguimiento_vacunacion.time_even
       </fieldset>
   </form>
   </div>
-
+  <div id="eventos">
       <?php
 
       $fechaLote = false;
@@ -187,6 +189,12 @@ $queryVacunas = mysql_query("SELECT DATE_FORMAT(seguimiento_vacunacion.time_even
         echo "</ul>";
       }
 
+      ?>
+  </div>
+  </br>
+
+  <div id="vacunacion">
+      <?php
 
       if(mysql_num_rows($queryVacunas)){
         echo "<ul>";
@@ -207,12 +215,13 @@ $queryVacunas = mysql_query("SELECT DATE_FORMAT(seguimiento_vacunacion.time_even
 
 
     ?>
+  </div>
 </div>
-   
+
 </div>
 
   <div class="footer"></div>
-  <script type="text/javascript" src="../jquery/jquery-latest.js"></script> 
+  <script type="text/javascript" src="../jquery/jquery-latest.min.js"></script> 
   <script type="text/javascript" src="../jquery/jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script> 
   <script type="text/javascript" src="../Js/vacas.js"></script> 

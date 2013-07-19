@@ -87,8 +87,11 @@ $obtenerVacunas = mysql_query("SELECT id, vacunas FROM vacunas WHERE idusuario_v
         </label>
         <br/>
         <br/>
-        <input type="hidden" name="senasa" value="<? echo $UID; ?>">
-        <input type="submit" value="Agregar" class="btn btn-success"></input>
+        <div class="form-action">
+        	<input type="hidden" name="senasa" value="<? echo $UID; ?>">
+        	<a <?php echo "href=\"detail.php?senasa=" . $UID . " \" " ?> class="btn btn-primary">Volver</a>
+        	<input type="submit" value="Agregar" class="btn btn-success"></input>
+        </div>
       </fieldset>
   </form>
 </div>

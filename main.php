@@ -24,6 +24,8 @@ if(isset($_GET['errorRango'])){
   $errorRango = "Debe agregar menos de 500 vacas por vez";
 }
 
+$time = date(Y);
+
 ?>
 
 <!DOCTYPE html>
@@ -51,22 +53,25 @@ if(isset($_GET['errorRango'])){
     <h3 class="">Ganado Bovino</h3>
   </div>
 </div>
+<h4 class="muted">Madres Vivas a&ntilde;o <?php echo $time; ?> </h4>
 
-<div class="container-narrow">
-  <div class="masthead">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li class="active"><a href="#">Madres</a></li>
-              <li><a href="Scripts/muertas.php">Muertas</a></li>
-              <li><a href="Scripts/vendidas.php">Vendidas</a></li>
-              <li><a href="Scripts/eventos.php">Eventos</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><!-- /.navbar -->
-    </div>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="dropdown">
+      <a class="dropdown-toggle" id="dropdown-toggle" data-toggle="dropdown" href="#"><h5>Vacas<b class="caret"></b></h5></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><h5>Vivas</h5></a></li>
+        <li><a href="Scripts/muertas.php"><h5>Muertas</h5></a></li>
+        <li><a href="Scripts/vendidas.php"><h5>Vendidas</h5></a></li>
+        <li class="divider"></li>
+        <li><a href="Scripts/perdidas.php"><h5>Perdidas</h5></a></li>
+      </ul>
+    </li>
+    <li><a href="Scripts/eventos.php"><h5>Eventos</h5></a></li>
+    <li><a href="#" class="disabled"><h5>Vender</h5></a></li>
+  </ul>
+</div>
+
   <button href="#" onclick="showForm()" id="addButton" class="btn btn-warning">Agregar</button>
   <br/>
   <br/>
@@ -101,10 +106,8 @@ if(isset($_GET['errorRango'])){
   <?php 
     include 'Scripts/connect.php';
 
-    $time = date(Y);
 
-
-    $result = mysql_query("SELECT hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra, hembras.vacunas_hembra, hembras.estado_hembra, YEAR(hembras.time_hembra), tacto.tacto, paricion.paricion FROM hembras 
+    $result = mysql_query("SELECT hembras.id_hembra, hembras.senasa_hembra, hembras.nacimiento_hembra, hembras.sanidad_hembra, hembras.estado_hembra, YEAR(hembras.time_hembra), tacto.tacto, paricion.paricion FROM hembras 
              INNER JOIN tacto ON tacto.id = hembras.tacto INNER JOIN paricion ON paricion.id = hembras.paricion WHERE existencia_hembra = '1' AND YEAR(hembras.time_hembra) = '$time' AND hembras.id_lote = '1' AND idusuario_hembra = '$id_usuario' ") or die (mysql_error());
 
     /*
@@ -120,7 +123,7 @@ if(isset($_GET['errorRango'])){
     <td>".$row['nacimiento_hembra']."</td>
     <td>".$row['tacto']."</td>
     <td>".$row['paricion']."</td>
-    <td>".$row['vacunas_hembra']."</td>
+    <td>".$row['sanidad_hembra']."</td>
     <td>".$row['estado_hembra']."</td>
     <td><a href=\"Scripts/vendida.php?id=" . $row['id_hembra'] . "&senasa=" . $row['senasa_hembra'] . "\" ><i class=\"icon-stop\"></a></td></tr>";
     }
@@ -131,10 +134,10 @@ if(isset($_GET['errorRango'])){
 </div>
 
   <div class="footer"></div>
-  <script type="text/javascript" src="jquery/jquery-latest.js"></script> 
+  <script type="text/javascript" src="jquery/jquery-latest.min.js"></script> 
   <script type="text/javascript" src="jquery/jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="../jquery/jquery.validate.js"></script> 
+  <script type="text/javascript" src="jquery/jquery.validate.js"></script> 
   <script type="text/javascript" src="Js/vacas.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){

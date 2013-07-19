@@ -9,13 +9,10 @@ $id_usuario = $_SESSION['id'];
 
 $senasa = $_GET['senasa'];
 
-/*
-<a <?php echo "href=\"muerta.php?senasa=" . $senasa . " \" "; ?> id="vacaMuerta" class="btn btn-inverse">Muerta</a>
-*/
 ?>
 <html>
 <head>
-  <title>Vaca Muerta</title>
+  <title>Agregar Comentario</title>
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -36,7 +33,7 @@ $senasa = $_GET['senasa'];
     <h3 class="">Ganado Bovino</h3>
   </div>
 </div>
-<h4 class="muted">Muerte de vaca n&uacute;mero <?php echo $senasa; ?></h4>
+<h4 class="muted">Comentario de vaca n&uacute;mero <?php echo $senasa; ?></h4>
 
 <div>
   <ul class="nav nav-tabs">
@@ -55,18 +52,20 @@ $senasa = $_GET['senasa'];
   </ul>
 </div>
 <div class="container">
-<form action="muertadb.php" id="comentarioMuerte" method="POST">
-	<legend>Informacion adicional<legend>
+
+<form action="comentariodb.php" id="comentario" method="POST">
+	<legend>Comentario<legend>
     <fieldset>
- 		<textarea name="comment" form="comentarioMuerte" rows="4" placeholder="Escriba aqu&iacute;..."></textarea>
+ 		<textarea name="comment" form="comentario" rows="4" placeholder="Escriba aqu&iacute;..."></textarea>
  	</br>
-    <input type="hidden" name="senasa" value= <?php echo "\" " . $senasa . " \" "; ?> >
+    <input type="hidden" name="senasa" value= <?php echo "\"" . $senasa . "\" "; ?> >
     <div class="form-action">
     <button <?php echo "href=\"detail.php?senasa=" . $senasa . " \" "; ?> class="btn btn-warning" value="Edit">Cancelar</button>
-    <button type="submit" name="submit" class="btn btn-danger" value="Edit">Confirmar</button>
+    <button type="submit" name="submit" class="btn btn-success" value="Edit">Confirmar</button>
     </div>
   </fieldset>
 </form>
+
 </div>
 <script type="text/javascript" src="../jquery/jquery-latest.min.js"></script> 
   <script type="text/javascript" src="../jquery/jquery.tablesorter.min.js"></script>

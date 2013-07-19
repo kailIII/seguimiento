@@ -20,7 +20,7 @@ $vacasObjetivo = array();
 while($row = mysql_fetch_array($vacasLote)){
 	array_push($vacasObjetivo, $row['senasa_hembra']);
 }
-
+$si = "Si";
 
 if($_POST['check'] != 0){
 	// Recorro vacunas
@@ -30,6 +30,7 @@ if($_POST['check'] != 0){
   		mysql_query($query2) or die (mysql_error());
 
 		foreach($vacasObjetivo as $senasa) { 
+			mysql_query("UPDATE hembras SET sanidad_hembra = 'Si' WHERE senasa_hembra = '$senasa' AND YEAR(time_hembra) = '$time' AND idusuario_hembra = '$id_usuario'") or die(mysql_error());
 
 			$query = "INSERT INTO vacunas_int (senasa_vaca, id_vacuna, idusuario_vint) VALUES ('$senasa','$id_vacuna', '$id_usuario')";
   			mysql_query($query) or die (mysql_error());

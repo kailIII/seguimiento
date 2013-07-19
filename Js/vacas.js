@@ -11,6 +11,8 @@ $(document).ready(function()
   		$("#showHideComentarios").click(function(){
     	$("#listaComentarios").toggle(500);
   		});
+  		$('.dropdown-toggle').dropdown();
+
   		var form = document.getElementById("formContainer");
         var add = document.getElementById("addButton");
 		if(form.style.display == "block"){

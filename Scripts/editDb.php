@@ -17,7 +17,7 @@ $estado = $_POST['estado'];
 $time = date(Y);
 
 //Update hembras
-$up = "UPDATE hembras SET nacimiento_hembra = '$nacimiento', tacto = '$tacto', paricion = '$paricion', vacunas_hembra = '$vacunas', 
+$up = "UPDATE hembras SET nacimiento_hembra = '$nacimiento', tacto = '$tacto', paricion = '$paricion', sanidad_hembra = '$vacunas', 
 estado_hembra = '$estado' WHERE senasa_hembra = '$senasa' AND YEAR(time_hembra) = '$time' AND idusuario_hembra = '$id_usuario'";
 
 mysql_query($up) or die (mysql_error());
